@@ -63,11 +63,9 @@ contract Raffle is VRFConsumerBaseV2Plus {
     bytes32 private immutable i_keyHash;
     uint256 private immutable i_subscriptionId;
     uint32 private immutable i_callbackGasLimit;
-
     address payable[] private s_players;
     uint256 private s_lastTimeStamp;
     address private s_recentWinner;
-
     RaffleState private s_RaffleState; // start as open
 
     /* Events */
@@ -88,7 +86,6 @@ contract Raffle is VRFConsumerBaseV2Plus {
         i_keyHash = _gasLane;
         i_subscriptionId = subscriptionId;
         i_callbackGasLimit = callbackGasLimit;
-
         s_lastTimeStamp = block.timestamp;
         s_RaffleState = RaffleState.OPEN;
     }
@@ -97,11 +94,9 @@ contract Raffle is VRFConsumerBaseV2Plus {
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughEthSent();
         }
-
         if (s_RaffleState != RaffleState.OPEN) {
             revert Raffle__RaffleNotOpen();
         }
-
         s_players.push(payable(msg.sender));
         emit RaffleEntered(msg.sender);
     }
@@ -132,14 +127,12 @@ contract Raffle is VRFConsumerBaseV2Plus {
         bool hasBalance = address(this).balance > 0;
         bool hasPlayers = s_players.length > 0;
         upkeepNeeded = timeHasPassed && isOpen && hasBalance && hasPlayers;
-
         return (upkeepNeeded, "");
     }
 
     function performUpkeep(bytes calldata /* performData */) external {
         // 1. Check to see if enough time has passed
         (bool upkeepNeeded, ) = checkUpkeep("");
-
         if (!upkeepNeeded) {
             revert Raffle__UpkeepNotNeeded(
                 address(this).balance,
@@ -162,8 +155,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
                     VRFV2PlusClient.ExtraArgsV1({nativePayment: false})
                 )
             });
-        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
 
+        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
         emit RequestedRaffleWinner(requestId);
     }
 
@@ -175,9 +168,8 @@ contract Raffle is VRFConsumerBaseV2Plus {
     ) internal override {
         // CHECKS
 
-        // 1. Pick a winner
-        // 2. Send them ETH
-
+        // 2. Pick a winner
+        // 3. Send them ETH
         // lets learn about Modulo Operator
         // suppose we have 10 players
         // and the rng gives us 12 as a random number
@@ -189,7 +181,6 @@ contract Raffle is VRFConsumerBaseV2Plus {
         uint256 indexOfWinner = randomWords[0] % s_players.length;
         address payable recentWinner = s_players[indexOfWinner];
         s_recentWinner = recentWinner;
-
         s_RaffleState = RaffleState.OPEN;
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
@@ -202,7 +193,9 @@ contract Raffle is VRFConsumerBaseV2Plus {
         }
     }
 
-    // Getter Functions
+    /**
+     * Getter Function
+     */
     function getEntranceFee() public view returns (uint256) {
         return i_entranceFee;
     }
