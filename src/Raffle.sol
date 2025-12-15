@@ -42,7 +42,6 @@ contract Raffle is VRFConsumerBaseV2Plus {
     enum RaffleState {
         OPEN, // 0
         CALCULATING // 1
-
     }
 
     /**
@@ -111,10 +110,15 @@ contract Raffle is VRFConsumerBaseV2Plus {
      * @return upkeepNeeded - true if it's time to restart the lottery
      * @return - ignored
      */
-    function checkUpkeep(bytes memory /* checkData */ )
+    function checkUpkeep(
+        bytes memory /* checkData */
+    )
         public
         view
-        returns (bool upkeepNeeded, bytes memory /* performData */ )
+        returns (
+            bool upkeepNeeded,
+            bytes memory /* performData */
+        )
     {
         bool timeHasPassed = ((block.timestamp - s_lastTimeStamp) >= i_interval);
         bool isOpen = s_RaffleState == RaffleState.OPEN;
@@ -124,7 +128,11 @@ contract Raffle is VRFConsumerBaseV2Plus {
         return (upkeepNeeded, "");
     }
 
-    function performUpkeep(bytes calldata /* performData */ ) external {
+    function performUpkeep(
+        bytes calldata /* performData */
+    )
+        external
+    {
         // 1. Check to see if enough time has passed
         (bool upkeepNeeded,) = checkUpkeep("");
         if (!upkeepNeeded) {
@@ -154,7 +162,10 @@ contract Raffle is VRFConsumerBaseV2Plus {
         uint256,
         /*requestId*/
         uint256[] calldata randomWords
-    ) internal override {
+    )
+        internal
+        override
+    {
         // CHECKS
 
         // 2. Pick a winner
