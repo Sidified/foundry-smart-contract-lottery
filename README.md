@@ -148,7 +148,7 @@ Comprehensive unit tests covering all contract functionality, edge cases, and se
 
 Mock LINK token contract for local testing without requiring actual LINK tokens.
 
-🎯 What's Next?
+## 🎯 What's Next?
 
 With the successful deployment of this provably fair lottery system, I have understood the integration of decentralized oracles and automated infrastructure. My next steps could be focused on:
 
