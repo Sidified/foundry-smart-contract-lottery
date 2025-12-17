@@ -50,7 +50,7 @@ Unlike traditional lotteries, this system is **provably fair** and **fully auton
    
    This project relies on `chainlink-brownie-contracts`, `solmate`, and `foundry-devops`.
    ```bash
-   forge install smartcontractkit/chainlink-brownie-contracts@1.1.1 
+   forge install smartcontractkit/chainlink-brownie-contracts@1.3.0 
    forge install transmissions11/solmate@v6 
    forge install Cyfrin/foundry-devops 
    ```
