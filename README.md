@@ -42,7 +42,7 @@ Unlike traditional lotteries, this system is **provably fair** and **fully auton
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/your-username/foundry-smart-contract-lottery.git
+   git clone https://github.com/sidified/foundry-smart-contract-lottery.git
    cd foundry-smart-contract-lottery
    ```
 
@@ -50,9 +50,9 @@ Unlike traditional lotteries, this system is **provably fair** and **fully auton
    
    This project relies on `chainlink-brownie-contracts`, `solmate`, and `foundry-devops`.
    ```bash
-   forge install smartcontractkit/chainlink-brownie-contracts@1.1.1 --no-commit
-   forge install transmissions11/solmate@v6 --no-commit
-   forge install Cyfrin/foundry-devops --no-commit
+   forge install smartcontractkit/chainlink-brownie-contracts@1.1.1 
+   forge install transmissions11/solmate@v6 
+   forge install Cyfrin/foundry-devops 
    ```
 
 3. **Build**
